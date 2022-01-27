@@ -21,3 +21,4 @@
 
 ## AR Drawing
 - Inheriting the ViewController from **ARSCNViewDelegate** will give access to the renderer delegate. This delegate function is called everytime the view is about to render a scene (60 fps)
+- By default, everyting in the renderer delegate takes place in a background thread. Use **DispatchQueue.main.async** to use the UI thread
