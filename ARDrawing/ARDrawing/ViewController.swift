@@ -10,6 +10,8 @@ import ARKit
 
 
 class ViewController: UIViewController, ARSCNViewDelegate {
+    @IBOutlet weak var draw: UIButton!
+    
     @IBOutlet weak var sceneView: ARSCNView!
     
     let configuration = ARWorldTrackingConfiguration()
@@ -44,7 +46,37 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // we have obtained the current position vector of the phone, and the orientation vector pointing in the direction of the camera
         // now we must simply combine these two vectors to be able to add nodes in front of the camera view
         let currentPositionOfCamera = orientation + location
-        print(orientation.x, orientation.y, orientation.z)
+        
+        // use the main thread
+        DispatchQueue.main.async {
+            if self.draw.isHighlighted {
+                // when the button is pressed, write a sphere node
+                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.02))
+                sphereNode.position = currentPositionOfCamera
+                self.sceneView.scene.rootNode.addChildNode(sphereNode)
+                sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+            }
+            else {
+                // show where the user will draw
+                // use a box shaped as a sphere
+                let pointer = SCNNode(geometry: SCNSphere(radius: 0.01)
+                )
+                pointer.name = "pointer"
+                pointer.position = currentPositionOfCamera
+                
+                // delete older pointers (removes the spheres but not the pointer)
+                self.sceneView.scene.rootNode.enumerateChildNodes({
+                    (node, _) in
+                    if node.name == "pointer" {
+                        node.removeFromParentNode()
+                    }
+                })
+                
+                // add newest pointer
+                self.sceneView.scene.rootNode.addChildNode(pointer)
+                pointer.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+            }
+        }
     }
 }
 
