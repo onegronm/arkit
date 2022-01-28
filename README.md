@@ -1,3 +1,8 @@
+# Apps
+- World Tracking
+- AR Drawing
+- Planets
+
 ## ARKit - Getting Started
 
 - Add a ARKit SceneKit View to the Main storyboard
@@ -18,7 +23,20 @@
 - Become comfortable creating custom shapes using relative positioning
 - **eulerAngles** control a node's orientation
 - A child node will rotate relative to its parent node to preserve its orientation
+- **viewDidLoad** is called when the UI assets are ready to work with but before they appear on the screen. UI assets can be referenced and manipulated. Use this event to do any additional setup after loading the view
+- **viewDidAppear** is called after objects appear
 
 ## AR Drawing
 - Inheriting the ViewController from **ARSCNViewDelegate** will give access to the renderer delegate. This delegate function is called everytime the view is about to render a scene (60 fps)
 - By default, everyting in the renderer delegate takes place in a background thread. Use **DispatchQueue.main.async** to use the UI thread
+
+## Textures and Surfaces
+- You can also refer to the **texture** across a node's material
+- Import an image by adding it as an image asset and using the UIImage(named:) object. Do not include the file extension in the "named" property
+- **SCNAction** is an animation class used to animate a node
+- Use **SCNAction.repeatForever()** to run an action forever
+- Use **SCNAction.rotateBy()** to add rotation to a node
+- A **specular** texture wraps a node to control how light is reflected from it
+- A **diffuse** texture spreads its content across the entire node covering it
+- An **emission** texture adds color or content to the node
+- A **normal** texture refers to the geometrical shape of each point in the surface
