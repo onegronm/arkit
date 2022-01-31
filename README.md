@@ -1,10 +1,10 @@
 # Apps
-- World Tracking
-- AR Drawing
-- Planets
+- World Tracking (Basics)
+- AR Drawing (Renderer Delegate)
+- Planets (Textures, Surfaces, and Rotation)
+- WhackAJelly (3D Models and Hit Testing)
 
 ## ARKit - Getting Started
-
 - Add a ARKit SceneKit View to the Main storyboard
 - Use the **assistant editor** to connect the scene view to the view controller (right-click)
 - Use debug options to ensure the world was properly detected and feature points are being constantly discovered
@@ -40,3 +40,16 @@
 - A **diffuse** texture spreads its content across the entire node covering it
 - An **emission** texture adds color or content to the node
 - A **normal** texture refers to the geometrical shape of each point in the surface
+
+## 3D Models and Hit-Testing
+- Use **Aspect Fit** content mode when filling a UI object with a background image
+- **#selector** is an Objective-C argument. Add **'@objc'** to expose the action to Objective-C
+- Use **UITapGestureRecognizer** to detect taps on the screen
+- A **hit test** will give you information of what you touched if the coordinates you touched match with the coordinates of an object inside of the scene you tapped on. If there is no match, the variable will be empty
+- You can download 3D models on TurboSquid.com
+- .dae is one of the models compatible with the scene view editor. .dae models come with their own camera from SceneKit. Since we have our own camera from ARKit scene view, you can remove it. It can also include light sources which you can also remove
+- To import textures, drag them into Xcode solution explorer and create a reference. Then use the texture as the node's diffuse color. The texture wraps and spreads its content all around the surface of the node
+- With the 3D object focused, click Editor > Convert to SceneKit scene file format (.scn). This is the recommended format to optimize Xcode performance
+- To load a separate scene into the view controller, we need to have it inside an assets folder. From the solution folder, click **New file > Asset Catalog** and name it **art.scnassets**. Drag the scene into the assets folder or right-click the folder and select **Add files to art.scnassets** (update: it's no longer required to be in this folder)
+- The diffuse texture will be lost by moving the scene object to the assets folder. To resolve this, reset the texture on the scene object
+
